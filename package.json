@@ -1,0 +1,44 @@
+{
+  "name": "jarvis",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-firebase/app": "^6.2.0",
+    "@react-native-firebase/storage": "^6.2.0",
+    "eslint-config-wesbos": "^0.0.19",
+    "react": "16.9.0",
+    "react-native": "0.61.5",
+    "react-native-image-picker": "^1.1.0",
+    "styled-components": "^4.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.57.0",
+    "prettier": "^1.19.1",
+    "react-test-renderer": "16.12.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
