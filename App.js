@@ -24,6 +24,7 @@ const App = () => {
       );
       switch (snapshot.state) {
         case 'running':
+          setImageURI(null);
           setUpload({ loading: true, progress });
           break;
         case 'success':
@@ -54,6 +55,7 @@ const App = () => {
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
+      <Button title="New Post" onPress={postNewFile} color="green" />
       {imageURI && <Picture source={imageURI} />}
       {upload.loading && (
         <>
@@ -61,7 +63,6 @@ const App = () => {
           <ProgressBar bar={upload.progress} />
         </>
       )}
-      <Button title="New Post" onPress={postNewFile} color="green" />
     </Container>
   );
 };
