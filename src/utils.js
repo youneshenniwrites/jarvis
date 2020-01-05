@@ -4,7 +4,9 @@ import storage from '@react-native-firebase/storage';
 
 export const imagePickerOptions = {
   noData: true,
+  allowEditing: true,
 };
+
 export const FireBaseStorage = storage();
 
 export const uploadFileToFireBase = imagePickerResponse => {

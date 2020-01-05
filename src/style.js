@@ -18,7 +18,9 @@ export const Skeleton = styled.View`
   background-color: #ebebeb;
 `;
 
-export const Picture = styled.Image`
+export const Picture = styled.Image.attrs({
+  resizeMode: 'contain',
+})`
   height: 300;
   width: 100%;
 `;
