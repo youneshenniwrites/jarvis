@@ -7,8 +7,8 @@ import {
   imagePickerOptions,
   uploadFileToFireBase,
   uploadProgress,
-} from './utils';
-import { Container, Picture, Skeleton, ProgressBar } from './style';
+} from '../../utils';
+import { Container, Picture, Skeleton, ProgressBar } from '../../styles';
 
 const UploadFile = () => {
   const [upload, setUpload] = useState({
@@ -39,14 +39,15 @@ const UploadFile = () => {
     });
   };
 
-  const postNewFile = () => {
-    ImagePicker.launchImageLibrary(imagePickerOptions, response => {
-      if (response.didCancel) {
+  const uploadFile = () => {
+    ImagePicker.launchImageLibrary(imagePickerOptions, imagePickerResponse => {
+      const { didCancel, error } = imagePickerResponse;
+      if (didCancel) {
         alert('Post canceled');
-      } else if (response.error) {
-        alert('An error occurred: ', response.error);
+      } else if (error) {
+        alert('An error occurred: ', error);
       } else {
-        const uploadTask = uploadFileToFireBase(response);
+        const uploadTask = uploadFileToFireBase(imagePickerResponse);
         monitorFileUpload(uploadTask);
       }
     });
@@ -55,7 +56,7 @@ const UploadFile = () => {
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
-      <Button title="New Post" onPress={postNewFile} color="green" />
+      <Button title="New Post" onPress={uploadFile} color="green" />
       {imageURI && <Picture source={imageURI} />}
       {upload.loading && (
         <>
