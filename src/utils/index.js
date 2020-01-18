@@ -8,6 +8,13 @@ export const imagePickerOptions = {
   noData: true,
 };
 
+export const getPercentage = ratio => Math.round(ratio * 100);
+
+export const generateRandomString = () =>
+  Math.random()
+    .toString(36)
+    .slice(3);
+
 const getFileLocalPath = response => {
   const { path, uri } = response;
   return Platform.OS === 'android' ? path : uri;
@@ -15,7 +22,8 @@ const getFileLocalPath = response => {
 
 const createStorageReferenceToFile = response => {
   const { fileName } = response;
-  return FireBaseStorage.ref(fileName);
+  const id = generateRandomString();
+  return FireBaseStorage.ref(`images/${id}-${fileName}`);
 };
 
 export const uploadFileToFireBase = response => {
@@ -23,5 +31,3 @@ export const uploadFileToFireBase = response => {
   const storageRef = createStorageReferenceToFile(response);
   return storageRef.putFile(fileSource);
 };
-
-export const uploadProgress = ratio => Math.round(ratio * 100);

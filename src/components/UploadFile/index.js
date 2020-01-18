@@ -1,43 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, StatusBar } from 'react-native';
 
 import ImagePicker from 'react-native-image-picker';
 
-import {
-  imagePickerOptions,
-  uploadFileToFireBase,
-  uploadProgress,
-} from '../../utils';
+import { imagePickerOptions } from '../../utils';
+
 import { Container, Picture, Skeleton, ProgressBar } from '../../styles';
+import { useUpload } from '../../hooks/useUpload';
 
 const UploadFile = () => {
-  const [upload, setUpload] = useState({
-    loading: false,
-    progress: 0,
-  });
-  const [imageURI, setImageURI] = useState(null);
-
-  const monitorFileUpload = task => {
-    task.on('state_changed', snapshot => {
-      const progress = uploadProgress(
-        snapshot.bytesTransferred / snapshot.totalBytes
-      );
-      switch (snapshot.state) {
-        case 'running':
-          setImageURI(null);
-          setUpload({ loading: true, progress });
-          break;
-        case 'success':
-          snapshot.ref.getDownloadURL().then(downloadURL => {
-            setImageURI({ uri: downloadURL });
-            setUpload({ loading: false });
-          });
-          break;
-        default:
-          break;
-      }
-    });
-  };
+  const [{ downloadURL, uploading, progress }, monitorUpload] = useUpload();
 
   const uploadFile = () => {
     ImagePicker.launchImageLibrary(imagePickerOptions, imagePickerResponse => {
@@ -47,8 +19,7 @@ const UploadFile = () => {
       } else if (error) {
         alert('An error occurred: ', error);
       } else {
-        const uploadTask = uploadFileToFireBase(imagePickerResponse);
-        monitorFileUpload(uploadTask);
+        monitorUpload(imagePickerResponse);
       }
     });
   };
@@ -57,11 +28,11 @@ const UploadFile = () => {
     <Container>
       <StatusBar barStyle="dark-content" />
       <Button title="New Post" onPress={uploadFile} color="green" />
-      {imageURI && <Picture source={imageURI} />}
-      {upload.loading && (
+      {downloadURL && <Picture source={{ uri: downloadURL }} />}
+      {uploading && (
         <>
           <Skeleton />
-          <ProgressBar bar={upload.progress} />
+          <ProgressBar bar={progress} />
         </>
       )}
     </Container>
