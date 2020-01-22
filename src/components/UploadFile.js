@@ -3,7 +3,7 @@ import { Button, StatusBar } from 'react-native';
 
 import ImagePicker from 'react-native-image-picker';
 
-import { imagePickerOptions } from '../utils';
+import { imagePickerOptions, register } from '../utils';
 
 import { Container, Picture, Skeleton, ProgressBar } from '../styles';
 import { useUpload } from '../hooks';
@@ -28,6 +28,11 @@ const UploadFile = () => {
     <Container>
       <StatusBar barStyle="dark-content" />
       <Button title="New Post" onPress={uploadFile} color="green" />
+      <Button
+        title="Register"
+        onPress={() => register('ggg@gmail.com', 'cambridge2020')}
+        color="blue"
+      />
       {downloadURL && <Picture source={{ uri: downloadURL }} />}
       {uploading && (
         <>
