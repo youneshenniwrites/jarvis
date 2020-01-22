@@ -3,10 +3,10 @@ import { Button, StatusBar } from 'react-native';
 
 import ImagePicker from 'react-native-image-picker';
 
-import { imagePickerOptions } from '../../utils';
+import { imagePickerOptions } from '../utils';
 
-import { Container, Picture, Skeleton, ProgressBar } from '../../styles';
-import { useUpload } from '../../hooks/useUpload';
+import { Container, Picture, Skeleton, ProgressBar } from '../styles';
+import { useUpload } from '../hooks';
 
 const UploadFile = () => {
   const [{ downloadURL, uploading, progress }, monitorUpload] = useUpload();
